@@ -29,9 +29,21 @@ const placeOrder = async (req, res) => {
 
 // Listing Order for Admin panel
 const listOrders = async (req, res) => {
+  const { userId } = req.body;
   try {
-    const orders = await orderModel.find({});
-    res.json({ success: true, data: orders });
+    const orders = await orderModel.find({ "items.userId": userId });
+    const storeOrders = orders
+      .map((order) => {
+        const filteredItems = order.items.filter(
+          (item) => item.userId === userId
+        );
+        return {
+          ...order._doc,
+          items: filteredItems,
+        };
+      })
+      .filter((order) => order.items.length > 0);
+    res.json({ success: true, data: storeOrders });
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: "Error" });
