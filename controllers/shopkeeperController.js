@@ -96,8 +96,9 @@ const shopkeeperSignup = async (req, res) => {
 
 // all shopkeeper list
 const shopkeeperList = async (req, res) => {
+  const { postalCode } = req.body;
   try {
-    const shopkeepers = await shopkeeperModel.find({});
+    const shopkeepers = await shopkeeperModel.find({ pincode: postalCode });
     res.json({ success: true, shopkeepers: shopkeepers });
   } catch (error) {
     console.log(error);

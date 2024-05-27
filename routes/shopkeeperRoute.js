@@ -25,7 +25,7 @@ const upload = multer({ storage: storage });
 shopkeeperRouter.post("/signup", upload.single("image"), shopkeeperSignup);
 shopkeeperRouter.post("/signin", shopkeeperSignin);
 shopkeeperRouter.get("/list", authMiddleware, listItems);
-shopkeeperRouter.get("/shopkeeperList", shopkeeperList);
+shopkeeperRouter.post("/shopkeeperList", shopkeeperList);
 shopkeeperRouter.post(
   "/addItem",
   upload.single("image"),
