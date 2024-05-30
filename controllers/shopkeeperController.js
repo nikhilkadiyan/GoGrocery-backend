@@ -130,6 +130,7 @@ const addItem = async (req, res) => {
     price: req.body.price,
     category: shopkeeper.category,
     image: image_filename,
+    discount: req.body.discount,
   });
   try {
     await item.save();
